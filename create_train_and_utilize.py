@@ -13,7 +13,7 @@ from utils import create_the_model, create_a_dataset
 print("1: creating a dummy dataset ...")
 x_training, y_training = create_a_dataset(nr_samples=1000, random_seed=1)
 
-print("2: creating an instance of augnet model for training ...")
+print("2: creating an instance of AugNet model for training ...")
 input_size = 4
 output_size = 2
 model = create_the_model(input_shape=input_size, output_shape=output_size, units=[128, 64, 32, 16], learning_rate=0.0001)
@@ -41,8 +41,8 @@ for i in range(input_size):
     test_value_minus = copy.deepcopy(test_sample)
     test_value_minus[i] = test_value_minus[i] - eps
 
-    jacobian_fd_estimate = (model.predict(np.array([test_value_plus])) - model.predict(np.array([test_value_minus]))) /\
-                         (2 * eps)
+    jacobian_fd_estimate = (model.predict(np.array([test_value_plus])) - model.predict(np.array([test_value_minus]))) \
+                           / (2 * eps)
 
     print("Derivative of the elements of the output, y, with respect to x[", i, "], \n... numerically estimated derivative: ",
           jacobian_fd_estimate, "\n... Automatic Differentiation estimate: ", jacobian_ad_estimate[0, :, 0, i].numpy(), "\n")
