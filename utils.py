@@ -1,4 +1,6 @@
 """"Some utilities which are not AugNet specific."""
+import copy
+
 import numpy as np
 import tensorflow.keras as keras
 from typing import List, Tuple
@@ -52,3 +54,25 @@ def create_a_dataset(nr_samples: int = 1000, random_seed: int = 1) -> Tuple:
     y = np.array([np.sin(x[:, 0] * x[:, 1]), np.cos(x[:, 2] * x[:, 3])])
     y = np.reshape(y, (-1, 2))
     return x, y
+
+
+def calculate_jacobian_with_finite_difference(x, eps, model):
+    """
+    Returns Jacobian at x for model
+    :param x: the Jacobian is calculated at this point
+    :param eps: the infinitesimal value for calculation of Jacobian via finite difference.
+    :param model: the model for outputs of which the Jac. is calculated.
+    :return: Jacobian.
+    """
+    jacobian_fd_estimate = []
+
+    for i in range(len(x)):
+        test_value_plus = copy.deepcopy(x)
+        test_value_plus[i] = test_value_plus[i] + eps
+        test_value_minus = copy.deepcopy(x)
+        test_value_minus[i] = test_value_minus[i] - eps
+
+        tmp = (model.predict(np.array([test_value_plus])) - model.predict(np.array([test_value_minus]))) / (2 * eps)
+        jacobian_fd_estimate.append(tmp)
+
+    return jacobian_fd_estimate
