@@ -29,7 +29,7 @@ test_sample = np.array([0.0, 0.0, 0.0, 0.0], dtype=np.float64)
 
 # 4.1 - first obtaining the jacobian from AugNet; which uses automatic differentiation within tensorflow package.
 test_sample_tf = tf.Variable([test_sample])
-jacobian_ad_estimate = model.return_the_input_grad(test_sample_tf)
+jacobian_ad_estimate = model.return_jacobian(test_sample_tf)
 
 
 # 4.2 - calculate the jacobian via finite difference.
