@@ -22,6 +22,9 @@ print("3: training started ...")
 model.fit(x=x_training, y=y_training, epochs=1000)
 print("training finished.")
 
+print("4: Saving the trained model ...")
+model.save('./trained_model/')
+
 # 4 - getting the jacobian values for a test sample and compare it with the numerically (finite difference) values.
 print(" 4: calculating the Jacobian")
 # make sure it is a float64

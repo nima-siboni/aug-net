@@ -1,5 +1,6 @@
 """"Some utilities which are not AugNet specific."""
 import copy
+import sys
 
 import numpy as np
 import tensorflow.keras as keras
@@ -76,3 +77,22 @@ def calculate_jacobian_with_finite_difference(x, eps, model):
         jacobian_fd_estimate.append(tmp)
 
     return jacobian_fd_estimate
+
+
+def check_similarities(model_1, model_2):
+    """
+    Checks similarities of two models.
+    :param model_1: the first keras model
+    :param model_2: the second keras model.
+    :return: True if the models are similar, otherwise breaks!
+    """
+    # Checking whether the parameters of the networks are same.
+    residual = 0.0
+    if len(model_1.weights) != len(model_2.weights):
+        sys.exit("Error: Models do not have same structure!")
+    for weight_id in range(len(model_1.weights)):
+        residual += (np.max(np.abs(model_1.weights[weight_id] - model_2.weights[weight_id])))
+    if residual != 0:
+        sys.exit("Error: Models do not have the same values for parameters!")
+
+    return True
