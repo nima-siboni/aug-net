@@ -71,7 +71,7 @@ the deep learning frameworks like tensorflow. This is also the approach that we 
 frameworks heavily rely on automatic differentiation and this process is optimized, we expect that the computational
 cost of the Jacobian calculation would be of the same order of magnitude as the forward execution of the neural network
 (i.e. as one prediction). To verify this, we empirically measured the required time for the Jacobian calculation. 
-For the above mentioned example, the time required for the Jacobian calculation drops from 9 hours to 2.5 secs, which is a dramatic 
+For the above mentioned example, the time required for the Jacobian calculation drops from **9 hours to 2.5 secs**, which is a dramatic 
 reduction.
 
 Some parts of the calculated Jacobian is presented in the following images.
@@ -83,7 +83,7 @@ The input:
 
 <img src="./sample_input/sample_input.jpg" width="50%">
 
-Two (out of thirteen) images which builds the Jacobian. 
+Three (out of thirteen) images which builds the Jacobian. 
 
 <img src="./jacobian_results/d_pred_0d_image.png" width="50%">
 <img src="./jacobian_results/d_pred_1d_image.png" width="50%">
