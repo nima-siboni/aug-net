@@ -12,13 +12,16 @@ from utils import check_similarities
 trained_model_dir = "trained_model"  # directory which has the trained model; could be an instance of AugNet or not.
 sample_input = 'sample_input/sample_input.jpg'
 jacobian_saving_dir = 'jacobian_results'
-# 1. Load a trained model and create a similar AugNet
+# 1. Load a trained model and create a similar AugNet and freeze it for inference
+# 1.1. loading the trained model
 trained_model = keras.models.load_model(trained_model_dir)
+# 1.2. creating the augnet model from the trained model
 model = AugNet(inputs=trained_model.inputs, outputs=trained_model.outputs)
 if check_similarities(trained_model, model):
     print("The AugNet model is created successfully from ", trained_model_dir)
 del trained_model
-
+# 1.3. Freeze the model (very important if the network has batchnormalization layers).
+model.trainable = False
 # 2. Getting the jacobian
 # 2.1. read an input
 x = np.array(load_img(sample_input, color_mode='grayscale', target_size=(256, 256))) / 255.
