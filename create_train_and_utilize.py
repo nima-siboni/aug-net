@@ -25,8 +25,11 @@ print("training finished.")
 print("4: Saving the trained model ...")
 model.save('./trained_model/')
 
-# 4 - getting the jacobian values for a test sample and compare it with the numerically (finite difference) values.
-print(" 4: calculating the Jacobian")
+print("5: Freezing the model for inference ...")
+# This is very important specially in the case that the network has batchnormalization layers.
+model.trainable = False
+# 6 - getting the jacobian values for a test sample and compare it with the numerically (finite difference) values.
+print("6: calculating the Jacobian")
 # make sure it is a float64
 test_sample = np.array([0.0, 0.0, 0.0, 0.0], dtype=np.float64)
 
